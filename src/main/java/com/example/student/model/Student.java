@@ -14,4 +14,10 @@ public class Student {
     private String gender;
     private String address;
 
+    public Student(String studentCode, String name, String gender, String address) {
+        this.studentCode = studentCode;
+        this.name = name;
+        this.gender = gender;
+        this.address = address;
+    }
 }

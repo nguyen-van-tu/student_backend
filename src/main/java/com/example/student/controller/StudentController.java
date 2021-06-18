@@ -1,5 +1,6 @@
 package com.example.student.controller;
 
+import com.example.student.dto.StudentDTO;
 import com.example.student.model.Student;
 import com.example.student.service.IStudentService;
 import org.bson.types.ObjectId;
@@ -8,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -18,9 +20,14 @@ public class StudentController {
     private IStudentService studentService;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public ResponseEntity<List<Student>> getAllStudent() {
-        List<Student> products = studentService.findAll();
-        return new ResponseEntity<>(products, HttpStatus.OK);
+    public ResponseEntity<List<StudentDTO>> getAllStudent() {
+        List<Student> students = studentService.findAll();
+        List<StudentDTO> studentDTOS = new ArrayList<>();
+        for (Student s : students) {
+            studentDTOS.add(new StudentDTO(s.get_id().toString(), s.getStudentCode(), s.getName(), s.getGender(),
+                    s.getAddress()));
+        }
+        return new ResponseEntity<>(studentDTOS, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -30,7 +37,9 @@ public class StudentController {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public ResponseEntity<Student> createStudent(@RequestBody Student student) {
+    public ResponseEntity<Student> createStudent(@RequestBody StudentDTO studentDTO) {
+        Student student = new Student(studentDTO.getStudentCode(), studentDTO.getName(),
+                studentDTO.getGender(), studentDTO.getAddress());
         studentService.save(student);
         return new ResponseEntity<Student>(student, HttpStatus.CREATED);
     }
