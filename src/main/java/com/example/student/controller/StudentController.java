@@ -52,9 +52,12 @@ public class StudentController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Student> updateProduct(@PathVariable ObjectId id, @RequestBody Student student) {
+    public ResponseEntity<Student> updateProduct(@PathVariable ObjectId id, @RequestBody StudentDTO studentDTO) {
+        Student student = new Student();
         student.set_id(id);
-        studentService.save(student);
-        return new ResponseEntity<Student>(HttpStatus.OK);
+        Student student1 = new Student(studentDTO.getStudentCode(), studentDTO.getName(),
+                studentDTO.getGender(), studentDTO.getAddress());
+        studentService.save(student1);
+        return new ResponseEntity<Student>(student1,HttpStatus.OK);
     }
 }

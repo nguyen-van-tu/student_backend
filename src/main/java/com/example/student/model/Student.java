@@ -20,4 +20,8 @@ public class Student {
         this.gender = gender;
         this.address = address;
     }
+
+    public Student() {
+
+    }
 }

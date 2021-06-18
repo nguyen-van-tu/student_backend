@@ -1,6 +1,10 @@
 package com.example.student.dto;
 
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class StudentDTO {
     private String _id;
     private String studentCode;
@@ -18,45 +22,5 @@ public class StudentDTO {
 
     public StudentDTO() {
 
-    }
-
-    public String get_id() {
-        return _id;
-    }
-
-    public void set_id(String _id) {
-        this._id = _id;
-    }
-
-    public String getStudentCode() {
-        return studentCode;
-    }
-
-    public void setStudentCode(String studentCode) {
-        this.studentCode = studentCode;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 }
